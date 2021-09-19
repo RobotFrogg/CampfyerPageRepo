@@ -33,7 +33,7 @@ const s = function( canvas ) {
         //brush size
         size = canvas.random(min_size, max_size)
 
-        let hue = canvas.floor(canvas.random(colour)+colour_dither)
+        let hue = canvas.floor(canvas.random(colour_dither)+colour)
         //^this isn't working as intended: colour_dither + colour equals number higher than intended
 
         //determines style

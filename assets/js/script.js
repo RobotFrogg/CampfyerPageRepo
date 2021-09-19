@@ -28,10 +28,12 @@ const s = function( canvas ) {
     canvas.draw = function() {
         let { min_size, max_size, radius, styles, draw_range, colour_dither, colour, saturation, brightness, light_dither, opacity, opacity_dither, bg_colour} = controls
 
+
+
         //brush size
         size = canvas.random(min_size, max_size)
 
-        let hue = canvas.floor(canvas.random(colour_dither)+colour)
+        let hue = canvas.floor(canvas.random(colour)+colour_dither)
         //^this isn't working as intended: colour_dither + colour equals number higher than intended
 
         //determines style
@@ -128,5 +130,64 @@ window.onload = function() {
     folderAutoDraw.add(controls, 'draw_range', 1, 100)
     pause = folderAutoDraw.add(controls, 'pause')
     folderAutoDraw.add(controls, 'save')
+}
+
+// document.onkeydown = function(e) {
+//     if(event.keyCode == 123) {
+//         return false;
+//     }
+//     if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+//         return false;
+//     }
+//     if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+//         return false;
+//     }
+//     if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+//         return false;
+//     }
+//     if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+//         return false;
+//     }
+// }
+
+// prevents right clicking
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// check if serviceworker supported and register it
+if('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker
+            .register('./service-worker.js')
+            .then(reg => console.log('Service Worker: Registered'))
+            .catch(err => console.log(`Service Worker: Error: ${err}`))
+    })
+}
+
+$(document).ready(function(){
+
+});
+
+
+function setCookie(c_name,value,exdays)
+{
+    var exdate=new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+    document.cookie=c_name + "=" + c_value;
+}
+
+function getCookie(c_name)
+{
+    var i,x,y,ARRcookies=document.cookie.split(";");
+    for (i=0;i<ARRcookies.length;i++)
+    {
+        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+        x=x.replace(/^\s+|\s+$/g,"");
+        if (x==c_name)
+        {
+            return unescape(y);
+        }
+    }
 }
 

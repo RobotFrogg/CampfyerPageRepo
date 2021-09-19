@@ -6,7 +6,7 @@ const s = function( canvas ) {
         canvas.createCanvas(canvas.windowWidth, canvas.windowHeight)
         canvas.rectMode(canvas.CENTER)
         canvas.colorMode(canvas.HSB)
-        canvas.background(255)
+        canvas.background('#f7f7f7')
         x = canvas.windowWidth / 2
         y = canvas.windowHeight / 2
         canvas.mouseY
@@ -24,14 +24,15 @@ const s = function( canvas ) {
 
     //draws canvas
     canvas.draw = function() {
-        let { min_size, max_size, radius, styles, draw_range, c_range, c_shift, saturation, brightness, light_dither, opacity, opacity_dither} = controls
+        let { min_size, max_size, radius, styles, draw_range, c_range, c_shift, saturation, brightness, light_dither, opacity, opacity_dither, bg_colour} = controls
 
+        //brush size
         size = canvas.random(min_size, max_size)
 
         let hue = canvas.floor(canvas.random(c_range)+c_shift)
         //^this isn't working as intended: c_range + c_shift equals number higher than intended
 
-        //determins style
+        //determines style
         if (styles == 'fill') {
             canvas.noStroke()
             canvas.fill(hue, saturation, brightness + canvas.random(light_dither), opacity)
@@ -42,7 +43,7 @@ const s = function( canvas ) {
             canvas.fill(0, 0, 100, 100)
         }
 
-        //determins if auto drawing is paused
+        //determines if auto drawing is paused
         if(!controls.pause){
             canvas.rect(x, y, canvas.random(size-5, size), canvas.random(size-3, size), 0)
         }else if(controls.pause && mouseDown){  
@@ -71,8 +72,6 @@ const s = function( canvas ) {
               y = Math.abs( (y - draw_range) % canvas.windowHeight )
               break
           }
-
-    
         }
     }
 }
@@ -94,7 +93,7 @@ const Controls = function() {
     this.light_dither = 3
     this.opacity = 1
     this.opacity_dither = 3
-
+    this.bg_colour = '#f7f7f7'
     this.styles = 'fill'
     this.pause = false
     this.save = function() {
@@ -106,19 +105,28 @@ const controls = new Controls()
 const myp5 = new p5(s)
 
 window.onload = function() {
-    const gui = new dat.GUI()
-    gui.add(controls, 'min_size',5, 50)
-    gui.add(controls, 'max_size', 5, 200)
-    gui.add(controls, 'draw_range', 1, 100)
-    gui.add(controls, 'c_range', 0, 360)
-    gui.add(controls, 'c_shift', 0, 360)
-    gui.add(controls, 'saturation', 0, 100)
-    gui.add(controls, 'brightness', 0, 100)
-    gui.add(controls, 'light_dither', 0, 10)
-    gui.add(controls, 'opacity', 0, 1)
-    gui.add(controls, 'opacity_dither', 0, 10)
-    gui.add(controls, 'styles', [ 'fill', 'nocolour'] );
-    pause = gui.add(controls, 'pause')
-    gui.add(controls, 'save')
+    let gui = new dat.GUI()
+    let folderBrush = gui.addFolder('Brush Settings');
+    folderBrush.add(controls, 'min_size',5, 50)
+    folderBrush.add(controls, 'max_size', 5, 200)
+    folderBrush.add(controls, 'styles', [ 'fill', 'nocolour'] );
+
+    let folderColour = gui.addFolder('Colour Settings');
+    folderColour.add(controls, 'c_range', 0, 360)
+    folderColour.add(controls, 'c_shift', 0, 360)
+    folderColour.add(controls, 'saturation', 0, 100)
+    folderColour.add(controls, 'brightness', 0, 100)
+    folderColour.add(controls, 'light_dither', 0, 10)
+    folderColour.add(controls, 'light_dither', 0, 10)
+    folderColour.addColor(controls, 'bg_colour')
+
+    let folderAutoDraw = gui.addFolder('Auto Draw Settings')
+
+    folderAutoDraw.add(controls, 'draw_range', 1, 100)
+    folderAutoDraw.add(controls, 'light_dither', 0, 10)
+    folderAutoDraw.add(controls, 'opacity', 0, 1)
+    folderAutoDraw.add(controls, 'opacity_dither', 0, 10)
+    pause = folderAutoDraw.add(controls, 'pause')
+    folderAutoDraw.add(controls, 'save')
 }
 

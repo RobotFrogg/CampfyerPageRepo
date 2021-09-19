@@ -16,7 +16,7 @@
 }
 
 .dg.main::-webkit-scrollbar {
-    background: #fafafa;
+    background: #ead5c5;
 }
 
 .dg.main::-webkit-scrollbar-thumb {
@@ -24,8 +24,8 @@
 }
  
 .dg li:not(.folder) {
-    background: #fafafa;
-    border-bottom: 1px solid #ddd;
+    background: #ead5c5;
+    border-bottom: 1px solid #b1addd;
 }
  
 .dg li.save-row .button {
@@ -33,7 +33,7 @@
 }
 
 .dg li.title {
-    background: #e8e8e8 url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;
+    background: #87ade5 url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;
 }
 
 .dg .cr.function:hover,.dg .cr.boolean:hover {

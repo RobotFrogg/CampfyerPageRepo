@@ -116,9 +116,9 @@ window.onload = function() {
     folderBrush.add(controls, 'styles', [ 'fill', 'nocolour'] );
 
     let folderColour = gui.addFolder('Colour Settings');
+    folderColour.add(controls, 'saturation', 0, 100)
     folderColour.add(controls, 'colour', 0, 360)
     folderColour.add(controls, 'colour_dither', 0, 360)
-    folderColour.add(controls, 'saturation', 0, 100)
     folderColour.add(controls, 'brightness', 0, 100)
     folderColour.add(controls, 'light_dither', 0, 10)
     folderColour.add(controls, 'opacity', 0, 1)

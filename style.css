@@ -2,3 +2,7 @@ html, body {
   margin: 0;
 }
 
+#canvasDiv{
+height:100%;
+width:100%;
+}

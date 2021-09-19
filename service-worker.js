@@ -26,6 +26,8 @@ const cacheAssets = [
     '.assets/img/Illustration3.png',
     '.assets/img/turtjessie.png',
     '.assets/img/unknown.png',
+    '.assets/img/5.png',
+    '.assets/img/2.png',
 
     '.assets/js/Lightbox-Gallery.js',
     '.assets/img/script.js',
